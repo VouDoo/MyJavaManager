@@ -1,0 +1,49 @@
+{
+    // See https://code.visualstudio.com/docs/editor/tasks#vscode
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "./build.ps1 Build",
+            "problemMatcher": []
+        },
+        {
+            "label": "build-bootstrap",
+            "type": "shell",
+            "command": "./build.ps1 -Bootstrap Build",
+            "problemMatcher": []
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "./build.ps1 Test",
+            "problemMatcher": []
+        },
+        {
+            "label": "test-bootstrap",
+            "type": "shell",
+            "command": "./build.ps1 -Bootstrap Test",
+            "problemMatcher": []
+        },
+        {
+            "label": "build-help",
+            "type": "shell",
+            "command": "./build.ps1 BuildHelp",
+            "problemMatcher": []
+        },
+        {
+            "label": "publish",
+            "type": "shell",
+            "command": "./build.ps1 Publish",
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "./build.ps1 Clean",
+            "problemMatcher": []
+        },
+    ]
+}

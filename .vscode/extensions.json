@@ -1,0 +1,9 @@
+{
+    // See https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions
+    // for the documentation about the extensions.json format
+    "recommendations": [
+        "ms-vscode.powershell",
+        "davidanson.vscode-markdownlint",
+        "Gruntfuggly.todo-tree"
+    ]
+}
