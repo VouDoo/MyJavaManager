@@ -30,7 +30,7 @@
     Copyright            = 'Copyright (c) 2021 by Maxence Grymonprez, licensed under MIT License.'
 
     # Description of the functionality provided by this module
-    Description          = 'A simple Java version manager in PowerShell.'
+    Description          = 'Version manager for Java in PowerShell.'
 
     # Minimum version of the PowerShell engine required by this module
     PowerShellVersion    = '5.1'
