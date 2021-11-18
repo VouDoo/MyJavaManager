@@ -59,6 +59,7 @@ class AdoptiumPackage {
         }
         finally {
             Remove-Item -Path $TempDirectory -Recurse -Force
+            Write-Debug -Message "Temporary directory removed `"$TempDirectory`"."
         }
 
         return $Item

@@ -11,6 +11,9 @@ function Use-InteractiveSelectionMenu {
     .PARAMETER Items
     List of items to add in the menu.
 
+    .PARAMETER Header
+    Menu header.
+
     .INPUTS
     None. You cannot pipe objects to Use-InteractiveSelectionMenu.
 
@@ -19,9 +22,18 @@ function Use-InteractiveSelectionMenu {
 
     .EXAMPLE
     PS> Use-InteractiveSelectionMenu -Items @("item1", "item2", "item3")
+    Select item:
     > item1
       item2
       item3
+
+    Show interactive menu to select an item.
+
+    .EXAMPLE
+    PS> Use-InteractiveSelectionMenu -Items @("coffee", "tea") -Header "Pick your hot beverages"
+    Pick your hot beverages
+    > coffee
+      tea
 
     Show interactive menu to select an item.
 
@@ -35,7 +47,12 @@ function Use-InteractiveSelectionMenu {
             Mandatory = $true,
             HelpMessage = "List of items to add in the menu"
         )]
-        [array] $Items
+        [array] $Items,
+
+        [Parameter(
+            HelpMessage = "Menu header"
+        )]
+        [string] $Header = "Select item:"
     )
 
     process {
@@ -48,6 +65,7 @@ function Use-InteractiveSelectionMenu {
             try {
                 [System.Console]::CursorVisible = $false
 
+                Write-Host $Header -ForegroundColor Gray
                 while (-not $Entered -and -not $Escaped) {
                     if (-not $FirstPrint) {
                         $Host.UI.RawUI.FlushInputBuffer()
