@@ -57,7 +57,7 @@ function Invoke-DownloadJavaPackage {
         }
         else {
             if ([Environment]::UserInteractive) {
-                $Version = Use-InteractiveSelectionMenu -Items $AvailableVersions
+                $Version = Use-InteractiveSelectionMenu -Items $AvailableVersions -Header "Select Java version:"
                 if (-not $Version) { break }
             }
             else {
