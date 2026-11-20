@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Switch-JavaVersion` failed the first time `%JAVA_HOME%\bin` was added to the Path (call to non-existent `Update-EnvPathProcess`)
 - `Switch-JavaVersion -Target Machine` wrote the Path value to a wrong registry subkey
 - Relative paths given to `Add-JavaEntry` and `Switch-JavaVersion -Path` were resolved against the process working directory instead of the PowerShell location
+- Cancelling an interactive menu with ESC used `break`, which could stop the caller's loop or script
 
 ## [0.1.0]
 
