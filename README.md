@@ -65,6 +65,12 @@ Extract it in `C:\Users\<your_user>\Documents\PowerShell\Modules\`.
     .\build.ps1 build -Bootstrap
     ```
 
+    To also run the PSScriptAnalyzer and Pester tests, use the `Test` task:
+
+    ```powershell
+    .\build.ps1 Test
+    ```
+
 3. Remove any old versions of the module
 
     ```powershell
