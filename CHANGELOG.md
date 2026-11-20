@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cancelling an interactive menu with ESC used `break`, which could stop the caller's loop or script
 - `Send-WMSettingChangeMessage` used the `[uint]` type accelerator, which is not available in Windows PowerShell 5.1
 - Removing the last Java entry could save the inventory as `[null]`, which made every following command fail on Windows PowerShell 5.1 (such files are now read correctly)
+- `Invoke-DownloadJavaPackage` failed with an obscure error when Adoptium has no Windows x64 JDK package for the requested version
 
 ## [0.1.0]
 
