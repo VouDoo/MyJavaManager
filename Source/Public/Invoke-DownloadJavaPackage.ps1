@@ -58,8 +58,13 @@ function Invoke-DownloadJavaPackage {
         }
         else {
             if ([Environment]::UserInteractive) {
-                $Version = Use-InteractiveSelectionMenu -Items $AvailableVersions -Header "Select Java version:"
-                if (-not $Version) { return }
+                # Mark LTS (Long-Term Support) versions in the menu, e.g. "21 (LTS)"
+                $MenuItems = $AvailableVersions | ForEach-Object -Process {
+                    if ($_ -in $LtsVersions) { "$_ (LTS)" } else { "$_" }
+                }
+                $SelectedItem = Use-InteractiveSelectionMenu -Items $MenuItems -Header "Select Java version:"
+                if (-not $SelectedItem) { return }
+                $Version = ($SelectedItem -split " ")[0]
             }
             else {
                 $Version = ($LtsVersions | Measure-Object -Maximum).Maximum
