@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Send-WMSettingChangeMessage` used the `[uint]` type accelerator, which is not available in Windows PowerShell 5.1
 - Removing the last Java entry could save the inventory as `[null]`, which made every following command fail on Windows PowerShell 5.1 (such files are now read correctly)
 - `Invoke-DownloadJavaPackage` failed with an obscure error when Adoptium has no Windows x64 JDK package for the requested version
+- `Switch-JavaVersion` updated the Path of the current session with substring replacements, which could alter unrelated entries, drop entries added in the session, or leave the new Java out of the Path; the new Java `bin` directory is now put first and only previous Java `bin` entries are removed
+- `Switch-JavaVersion -WhatIf` still modified the Path of the current session
 
 ## [0.1.0]
 

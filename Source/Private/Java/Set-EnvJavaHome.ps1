@@ -77,7 +77,6 @@ function Set-EnvJavaHome {
                         throw "Cannot add `"%JAVA_HOME%\bin`" to Path environment variable in $Target scope: {0}" -f $_.Exception.Message
                     }
                     Send-WMSettingChangeMessage
-                    Update-EnvPath
                 }
             }
             else {
@@ -85,20 +84,21 @@ function Set-EnvJavaHome {
             }
         }
 
-        if ($PreviousValue) {
-            $env:Path = $env:Path.Replace($PreviousValue, $NormalizedPath)
-            Write-Debug -Message "JAVA_HOME path from the Path environment variable in Process scope has been updated to `"$NormalizedPath`"."
-        }
-        else {
-            if ($Target -ne "Process") {
-                $env:Path = $env:Path.Replace("%JAVA_HOME%", $NormalizedPath)
-                Write-Debug -Message "`"%JAVA_HOME%`" from the Path environment variable in Process scope has been replaced by `"$NormalizedPath`"."
+        # Update the Path of the current session: remove any previous Java bin entry
+        # (exact match, case-insensitive) and put the new one first, keeping every other entry.
+        $NewBinPath = "$NormalizedPath\bin"
+        if ($PSCmdlet.ShouldProcess("Path environment variable in Process scope", "Use '$NewBinPath'")) {
+            $Separator = [System.IO.Path]::PathSeparator
+            $BinPathsToRemove = @("%JAVA_HOME%\bin", $NewBinPath)
+            if ($PreviousValue) {
+                $BinPathsToRemove += "{0}\bin" -f $PreviousValue.TrimEnd("\")
             }
-            else {
-                $PathToAppend = "{0}$NormalizedPath\bin" -f [System.IO.Path]::PathSeparator
-                $env:Path += $PathToAppend
-                Write-Debug -Message "`"$PathToAppend`" has been appended to the Path environment variable in Process scope."
+
+            $Entries = $env:Path -split [regex]::Escape($Separator) | Where-Object -FilterScript {
+                $_ -and $_.TrimEnd("\") -notin $BinPathsToRemove
             }
+            $env:Path = (@($NewBinPath) + @($Entries)) -join $Separator
+            Write-Debug -Message "`"$NewBinPath`" has been set first in the Path environment variable in Process scope."
         }
     }
 }
