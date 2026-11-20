@@ -56,7 +56,7 @@ function Import-BatchPathsFromEnvPath {
                 $WScriptShell.RegRead("HKEY_CURRENT_USER\Environment\Path")
             }
         }
-        Write-Debug -Message "Current value of the Path environement variable in $Target scope: `"$Value`"."
+        Write-Debug -Message "Current value of the Path environment variable in $Target scope: `"$Value`"."
 
         $Value -split [System.IO.Path]::PathSeparator | Where-Object -FilterScript { $_ } | Select-Object -Unique
     }

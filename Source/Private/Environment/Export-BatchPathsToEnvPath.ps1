@@ -64,7 +64,7 @@ function Export-BatchPathsToEnvPath {
                 }
             }
             [Microsoft.Win32.Registry]::SetValue($KeyName, "Path", $Value, [Microsoft.Win32.RegistryValueKind]::ExpandString)
-            Write-Debug -Message "New value of the Path environement variable in $Target scope: `"$Value`"."
+            Write-Debug -Message "New value of the Path environment variable in $Target scope: `"$Value`"."
         }
     }
 }
