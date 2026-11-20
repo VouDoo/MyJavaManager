@@ -41,7 +41,8 @@ class Inventory {
         Remove a Java entry from the inventory.
         #>
 
-        $this.JavaEntries = $this.JavaEntries | Where-Object -Property Name -NE $Name
+        # @() keeps an empty array (instead of $null) when the last entry is removed
+        $this.JavaEntries = @($this.JavaEntries | Where-Object -Property Name -NE $Name)
         Write-Debug -Message "Java entry `"$Name`" has been removed from the inventory."
     }
 
@@ -83,7 +84,12 @@ class Inventory {
         $this.JavaEntries = @()
 
         # Add JavaEntry objects to JavaEntries array
+        # Skip null or incomplete items (e.g. "[null]" written by older versions when the last entry was removed)
         foreach ($Item in $Items) {
+            if ($null -eq $Item -or -not $Item.Name -or -not $Item.Path) {
+                Write-Debug -Message "Skipping invalid item in the inventory file."
+                continue
+            }
             $this.AddJavaEntry($Item.Name, $Item.Path)
         }
 
@@ -102,7 +108,8 @@ class Inventory {
         # Set content of the inventory file
         $SetContentParams = @{
             Path     = $this.Path
-            Value    = ConvertTo-Json -InputObject @($this.JavaEntries)
+            # Filter out nulls so an empty inventory is saved as "[]" and not "[null]"
+            Value    = ConvertTo-Json -InputObject @($this.JavaEntries | Where-Object -FilterScript { $null -ne $_ })
             Encoding = $this.Encoding
         }
         try {

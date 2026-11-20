@@ -102,7 +102,7 @@ function Switch-JavaVersion {
             if (-not $Name) {
                 if ([Environment]::UserInteractive) {
                     $Name = Use-InteractiveSelectionMenu -Items $JavaEntryNames -Header "Select Java entry:"
-                    if (-not $Name) { break }
+                    if (-not $Name) { return }
                 }
                 else {
                     Write-Error -Message "Parameter `"Name`" cannot be an empty string."
@@ -114,6 +114,10 @@ function Switch-JavaVersion {
             }
 
             $Path = $Inventory.GetJavaEntry($Name).Path
+        }
+        else {
+            # Resolve against the PowerShell location ($PWD, ~), not the .NET process working directory
+            $Path = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
         }
 
         if (-not (Test-JavaHomeDirectory -Path $Path)) {

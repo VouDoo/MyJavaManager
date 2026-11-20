@@ -118,7 +118,32 @@ Task Analyze -depends Build {
     )
 } -description "Run PSScriptAnalyzer tests"
 
-Task Test -depends Analyze -description "Run combined tests"
+Task Pester {
+    # Import module
+    if (-not (Get-Module Pester -ListAvailable | Where-Object -Property Version -GE "5.0.0")) {
+        "[{0}][import] Pester 5 or later is not installed. Skipping task." -f $psake.context.currentTaskName
+        return
+    }
+    Import-Module Pester -MinimumVersion 5.0.0
+
+    # Set Pester configuration
+    $PesterConfiguration = New-PesterConfiguration
+    $PesterConfiguration.Run.Path = $Settings.Tests
+    $PesterConfiguration.Run.PassThru = $true
+    $PesterConfiguration.Output.Verbosity = "Detailed"
+
+    # Run Pester
+    $Result = Invoke-Pester -Configuration $PesterConfiguration
+
+    # Assertions
+    Assert -conditionToCheck (
+        $Result.FailedCount -eq 0
+    ) -failureMessage (
+        "[{0}][result] {1} test(s) failed." -f $psake.context.currentTaskName, $Result.FailedCount
+    )
+} -description "Run Pester tests"
+
+Task Test -depends Analyze, Pester -description "Run combined tests"
 
 Task platyPS -depends Build {
     # Import module

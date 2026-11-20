@@ -57,14 +57,14 @@ function Export-BatchPathsToEnvPath {
         if ($PSCmdlet.ShouldProcess("Path environment variable in '$Target' scope", "Set value to '$Value'")) {
             $KeyName = switch ($Target) {
                 "Machine" {
-                    "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\Path"
+                    "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment"
                 }
                 "User" {
                     "HKEY_CURRENT_USER\Environment"
                 }
             }
             [Microsoft.Win32.Registry]::SetValue($KeyName, "Path", $Value, [Microsoft.Win32.RegistryValueKind]::ExpandString)
-            Write-Debug -Message "New value of the Path environement variable in $Target scope: `"$Value`"."
+            Write-Debug -Message "New value of the Path environment variable in $Target scope: `"$Value`"."
         }
     }
 }

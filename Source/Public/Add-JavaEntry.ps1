@@ -57,6 +57,9 @@ function Add-JavaEntry {
     }
 
     process {
+        # Resolve against the PowerShell location ($PWD, ~), not the .NET process working directory
+        $Path = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
+
         if (-not (Test-JavaHomeDirectory -Path $Path)) {
             Write-Error -Message "Path `"$Path`" is not a Java home directory."
         }

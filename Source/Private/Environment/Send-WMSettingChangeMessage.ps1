@@ -43,7 +43,7 @@ public static extern IntPtr SendMessageTimeout(
     process {
         # Set SendMessageTimeout arguments to send WM_SETTINGCHANGE message
         [IntPtr] $HWnd = 0xffff
-        [uint] $Msg = 0x1a  # WM_SETTINGCHANGE flag
+        [uint32] $Msg = 0x1a  # WM_SETTINGCHANGE flag
         [UIntPtr] $LpdwResult = [UIntPtr]::Zero
 
         if ($PSCmdlet.ShouldProcess("Send WM_SETTINGCHANGE message to all top-level windows")) {

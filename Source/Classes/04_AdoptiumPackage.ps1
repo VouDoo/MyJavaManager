@@ -5,6 +5,9 @@ class AdoptiumPackage {
 
     AdoptiumPackage([int] $FeatureVersion) {
         $Asset = [AdoptiumApi]::GetLatestAsset($FeatureVersion)
+        if (-not $Asset) {
+            throw "No Windows x64 JDK package is available from Adoptium for Java $FeatureVersion."
+        }
 
         $this.Name = $Asset.release_name
         $this.Uri = $Asset.binary.package.link

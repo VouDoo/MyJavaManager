@@ -1,6 +1,6 @@
 # MyJavaManager
 
-MyJavaManager is a PowerShell module that helps you to manage versions of Java on your system.
+MyJavaManager is a PowerShell module that helps you to manage versions of Java on your Windows system.
 
 Available features:
 
@@ -24,10 +24,12 @@ To install the PowerShell module, follow one of these methods:
 - [Get released versions](#get-released-versions)
 - [Build from Source](#build-from-source)
 
-The module supports the following PowerShell versions:
+The module is **Windows-only** (it relies on the Windows Registry and Windows APIs).
 
-- PowerShell Desktop 5.1
-- PowerShell Core 6 and later
+It supports the following PowerShell versions:
+
+- Windows PowerShell 5.1
+- PowerShell 6 and later, on Windows
 
 Get the latest version of PowerShell from [the official PowerShell repository](https://github.com/PowerShell/PowerShell/releases).
 
@@ -61,6 +63,12 @@ Extract it in `C:\Users\<your_user>\Documents\PowerShell\Modules\`.
 
     ```powershell
     .\build.ps1 build -Bootstrap
+    ```
+
+    To also run the PSScriptAnalyzer and Pester tests, use the `Test` task:
+
+    ```powershell
+    .\build.ps1 Test
     ```
 
 3. Remove any old versions of the module
