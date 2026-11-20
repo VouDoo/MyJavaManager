@@ -77,7 +77,7 @@ function Set-EnvJavaHome {
                         throw "Cannot add `"%JAVA_HOME%\bin`" to Path environment variable in $Target scope: {0}" -f $_.Exception.Message
                     }
                     Send-WMSettingChangeMessage
-                    Update-EnvPathProcess
+                    Update-EnvPath
                 }
             }
             else {
