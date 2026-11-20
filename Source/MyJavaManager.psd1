@@ -100,7 +100,10 @@
                 'JavaManager',
                 'JavaVersion',
                 'Manager',
-                'VersionManager'
+                'VersionManager',
+                'Windows',
+                'PSEdition_Desktop',
+                'PSEdition_Core'
             )
 
             # A URL to the license for this module.

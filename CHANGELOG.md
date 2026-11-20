@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The module is now explicitly Windows-only: importing it on Linux or macOS fails with a clear error, and the README and gallery tags state it
+
 ### Fixed
 
 - `Switch-JavaVersion` failed the first time `%JAVA_HOME%\bin` was added to the Path (call to non-existent `Update-EnvPathProcess`)
