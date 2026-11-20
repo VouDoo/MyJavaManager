@@ -18,6 +18,22 @@ class AdoptiumApi {
         return $RestMethodResult.available_releases
     }
 
+    static [int[]] GetAvailableLtsVersions() {
+
+        <#
+        .Description
+        Get the available LTS (Long-Term Support) feature versions of Java.
+        #>
+
+        $RestMethodParams = @{
+            Method = "Get"
+            Uri    = "https://api.adoptium.net/v3/info/available_releases"
+        }
+        $RestMethodResult = Invoke-RestMethod @RestMethodParams
+
+        return $RestMethodResult.available_lts_releases
+    }
+
     static [object] GetLatestAsset([int] $FeatureVersion) {
 
         <#

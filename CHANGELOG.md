@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- When run non-interactively without `-Version`, `Invoke-DownloadJavaPackage` downloads the latest LTS (Long-Term Support) version instead of the latest version
+
 ## [0.2.0] - 2026-11-20
 
 ### Added

@@ -21,7 +21,7 @@ function Invoke-DownloadJavaPackage {
     PS> Invoke-DownloadJavaPackage
 
     If in interactive PowerShell session, select a version of Java using menu.
-    Else, pick the latest available version of Java.
+    Else, pick the latest LTS (Long-Term Support) version of Java.
     Download and install the Java package in the .java_package folder.
 
     .EXAMPLE
@@ -46,6 +46,7 @@ function Invoke-DownloadJavaPackage {
         $InformationPreference = "Continue"
         $ErrorActionPreference = "Stop"
         $AvailableVersions = [AdoptiumApi]::GetAvailableFeatureVersions()
+        $LtsVersions = [AdoptiumApi]::GetAvailableLtsVersions()
         $DestinationDirectory = Join-Path -Path $HOME -ChildPath ".java_packages"
     }
 
@@ -61,7 +62,7 @@ function Invoke-DownloadJavaPackage {
                 if (-not $Version) { return }
             }
             else {
-                $Version = ($AvailableVersions | Measure-Object -Maximum).Maximum
+                $Version = ($LtsVersions | Measure-Object -Maximum).Maximum
             }
         }
 
