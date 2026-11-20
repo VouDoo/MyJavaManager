@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-20
+
 ### Added
 
 - `RemoveDirectory` parameter on `Remove-JavaEntry` to also remove the Java home directory from the disk (not removed if it is the current `JAVA_HOME`, not a Java home directory, or used by other entries)
@@ -27,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Switch-JavaVersion` updated the Path of the current session with substring replacements, which could alter unrelated entries, drop entries added in the session, or leave the new Java out of the Path; the new Java `bin` directory is now put first and only previous Java `bin` entries are removed
 - `Switch-JavaVersion -WhatIf` still modified the Path of the current session
 
-## [0.1.0]
+## [0.1.0] - 2021-11-18
 
 Initial release of the module
+
+[Unreleased]: https://github.com/VouDoo/MyJavaManager/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/VouDoo/MyJavaManager/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/VouDoo/MyJavaManager/releases/tag/v0.1.0
