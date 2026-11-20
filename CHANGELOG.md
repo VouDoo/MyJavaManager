@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `RemoveDirectory` parameter on `Remove-JavaEntry` to also remove the Java home directory from the disk (not removed if it is the current `JAVA_HOME`, not a Java home directory, or used by other entries)
+
 ### Changed
 
 - The module is now explicitly Windows-only: importing it on Linux or macOS fails with a clear error, and the README and gallery tags state it
