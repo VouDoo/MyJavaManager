@@ -18,6 +18,7 @@ Invoke-DownloadJavaPackage [[-Version] <Int32>] [-WhatIf] [-Confirm] [<CommonPar
 
 ## DESCRIPTION
 Download and install a Java package from Adoptium and add an associated entry to the inventory file.
+The package matches the architecture of the system (x64 or ARM64).
 
 ## EXAMPLES
 
