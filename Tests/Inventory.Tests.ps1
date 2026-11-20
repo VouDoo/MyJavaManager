@@ -167,7 +167,7 @@ Describe "Inventory" {
         It "Saves an empty inventory as an empty JSON array" {
             $Inventory.SaveFile()
 
-            (Get-Content -Path $Inventory.Path -Raw).Trim() | Should -Be "[]"
+            (Get-Content -Path $Inventory.Path -Raw) -replace "\s" | Should -Be "[]"
         }
 
         It "Can be read back after the last entry has been removed" {
@@ -176,7 +176,7 @@ Describe "Inventory" {
             $Inventory.RemoveJavaEntry("jdk-17")
             $Inventory.SaveFile()
 
-            (Get-Content -Path $Inventory.Path -Raw).Trim() | Should -Be "[]"
+            (Get-Content -Path $Inventory.Path -Raw) -replace "\s" | Should -Be "[]"
 
             $Loaded = New-TestInventory
             { $Loaded.ReadFile() } | Should -Not -Throw
