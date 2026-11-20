@@ -13,11 +13,12 @@ Remove a Java entry.
 ## SYNTAX
 
 ```
-Remove-JavaEntry [[-Name] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-JavaEntry [[-Name] <String>] [-RemoveDirectory] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Remove a Java entry to the inventory file.
+Remove a Java entry from the inventory file.
+Optionally, also remove its Java home directory from the disk.
 
 ## EXAMPLES
 
@@ -27,6 +28,13 @@ Remove-JavaEntry -Name undesired_java
 ```
 
 Remove a Java entry with defined name from the inventory file.
+
+### EXAMPLE 2
+```
+Remove-JavaEntry -Name jdk-11.0.13.0 -RemoveDirectory
+```
+
+Remove a Java entry from the inventory file and its Java home directory from the disk.
 
 ## PARAMETERS
 
@@ -41,6 +49,24 @@ Aliases:
 Required: False
 Position: 1
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RemoveDirectory
+Also remove the Java home directory of the entry from the disk.
+The directory is removed before the entry; if it cannot be removed, the entry is kept.
+Nothing is removed if the directory is not a Java home directory or if it is the current JAVA_HOME.
+The directory is kept (only the entry is removed) if other Java entries use it.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
