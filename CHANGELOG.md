@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `Switch-JavaVersion` failed the first time `%JAVA_HOME%\bin` was added to the Path (call to non-existent `Update-EnvPathProcess`)
+- `Switch-JavaVersion -Target Machine` wrote the Path value to a wrong registry subkey
 
 ## [0.1.0]
 
