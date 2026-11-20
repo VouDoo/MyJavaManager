@@ -4,9 +4,10 @@ class AdoptiumPackage {
     [string] $Checksum
 
     AdoptiumPackage([int] $FeatureVersion) {
-        $Asset = [AdoptiumApi]::GetLatestAsset($FeatureVersion)
+        $Architecture = [AdoptiumApi]::GetArchitecture()
+        $Asset = [AdoptiumApi]::GetLatestAsset($FeatureVersion, $Architecture)
         if (-not $Asset) {
-            throw "No Windows x64 JDK package is available from Adoptium for Java $FeatureVersion."
+            throw "No Windows $Architecture JDK package is available from Adoptium for Java $FeatureVersion."
         }
 
         $this.Name = $Asset.release_name

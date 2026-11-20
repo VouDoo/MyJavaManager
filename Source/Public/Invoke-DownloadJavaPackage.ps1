@@ -7,6 +7,7 @@ function Invoke-DownloadJavaPackage {
 
     .DESCRIPTION
     Download and install a Java package from Adoptium and add an associated entry to the inventory file.
+The package matches the architecture of the system (x64 or ARM64).
 
     .PARAMETER Version
     Version of Java to download.
@@ -21,7 +22,7 @@ function Invoke-DownloadJavaPackage {
     PS> Invoke-DownloadJavaPackage
 
     If in interactive PowerShell session, select a version of Java using menu.
-    Else, pick the latest available version of Java.
+    Else, pick the latest LTS (Long-Term Support) version of Java.
     Download and install the Java package in the .java_package folder.
 
     .EXAMPLE
@@ -46,6 +47,7 @@ function Invoke-DownloadJavaPackage {
         $InformationPreference = "Continue"
         $ErrorActionPreference = "Stop"
         $AvailableVersions = [AdoptiumApi]::GetAvailableFeatureVersions()
+        $LtsVersions = [AdoptiumApi]::GetAvailableLtsVersions()
         $DestinationDirectory = Join-Path -Path $HOME -ChildPath ".java_packages"
     }
 
@@ -57,11 +59,16 @@ function Invoke-DownloadJavaPackage {
         }
         else {
             if ([Environment]::UserInteractive) {
-                $Version = Use-InteractiveSelectionMenu -Items $AvailableVersions -Header "Select Java version:"
-                if (-not $Version) { return }
+                # Mark LTS (Long-Term Support) versions in the menu, e.g. "21 (LTS)"
+                $MenuItems = $AvailableVersions | ForEach-Object -Process {
+                    if ($_ -in $LtsVersions) { "$_ (LTS)" } else { "$_" }
+                }
+                $SelectedItem = Use-InteractiveSelectionMenu -Items $MenuItems -Header "Select Java version:"
+                if (-not $SelectedItem) { return }
+                $Version = ($SelectedItem -split " ")[0]
             }
             else {
-                $Version = ($AvailableVersions | Measure-Object -Maximum).Maximum
+                $Version = ($LtsVersions | Measure-Object -Maximum).Maximum
             }
         }
 
