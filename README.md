@@ -1,5 +1,7 @@
 # MyJavaManager
 
+[![CI](https://github.com/VouDoo/MyJavaManager/actions/workflows/ci.yml/badge.svg)](https://github.com/VouDoo/MyJavaManager/actions/workflows/ci.yml)
+
 MyJavaManager is a PowerShell module that helps you to manage versions of Java on your Windows system.
 
 Available features:

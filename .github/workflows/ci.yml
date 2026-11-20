@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test (${{ matrix.shell == 'powershell' && 'Windows PowerShell 5.1' || 'PowerShell 7' }})
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shell: [powershell, pwsh]
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Build and test (Analyze + Pester)
+        run: .\build.ps1 -Bootstrap Test
+
+      - name: End-to-end tests
+        run: |
+          $Manifest = (Get-ChildItem -Path .\Out\MyJavaManager\*\MyJavaManager.psd1).FullName
+          .\Tests\EndToEnd\Invoke-EndToEndTest.ps1 -ModulePath $Manifest
+
+  arm64:
+    name: ARM64 download (PowerShell 7)
+    runs-on: windows-11-arm
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Build
+        shell: pwsh
+        run: .\build.ps1 -Bootstrap Build
+
+      - name: End-to-end tests (ARM64)
+        shell: pwsh
+        run: |
+          $Manifest = (Get-ChildItem -Path .\Out\MyJavaManager\*\MyJavaManager.psd1).FullName
+          .\Tests\EndToEnd\Invoke-EndToEndTest.ps1 -ModulePath $Manifest -Arm64Only
