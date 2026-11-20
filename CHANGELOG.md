@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Relative paths given to `Add-JavaEntry` and `Switch-JavaVersion -Path` were resolved against the process working directory instead of the PowerShell location
 - Cancelling an interactive menu with ESC used `break`, which could stop the caller's loop or script
 - `Send-WMSettingChangeMessage` used the `[uint]` type accelerator, which is not available in Windows PowerShell 5.1
+- Removing the last Java entry could save the inventory as `[null]`, which made every following command fail on Windows PowerShell 5.1 (such files are now read correctly)
 
 ## [0.1.0]
 
