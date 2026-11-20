@@ -74,7 +74,7 @@ Extract it in `C:\Users\<your_user>\Documents\PowerShell\Modules\`.
 3. Remove any old versions of the module
 
     ```powershell
-    Remove-Item "$HOME\Documents\PowerShell\Modules\MyJavaManager" -Force
+    Remove-Item "$HOME\Documents\PowerShell\Modules\MyJavaManager" -Recurse -Force
     ```
 
 4. Install the freshly built module
