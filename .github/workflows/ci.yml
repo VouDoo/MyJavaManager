@@ -14,15 +14,16 @@ jobs:
       fail-fast: false
       matrix:
         shell: [powershell, pwsh]
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
     steps:
       - uses: actions/checkout@v5
 
       - name: Build and test (Analyze + Pester)
-        shell: ${{ matrix.shell }}
         run: .\build.ps1 -Bootstrap Test
 
       - name: End-to-end tests
-        shell: ${{ matrix.shell }}
         run: |
           $Manifest = (Get-ChildItem -Path .\Out\MyJavaManager\*\MyJavaManager.psd1).FullName
           .\Tests\EndToEnd\Invoke-EndToEndTest.ps1 -ModulePath $Manifest
